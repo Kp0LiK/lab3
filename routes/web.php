@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\BlogController;
 
 use App\Models\Post;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +23,11 @@ Route::get('/', function () {
 });
 
 Route::get('/portfolio', function () {
-    return view('index');
+    return view('project');
 });
 
-Route::get('/blog', function (){
-    return view('blog');
+Route::get('/blogger', function (){
+    return view('blogger');
 });
 
 Route::get('/about', function (){
@@ -43,3 +45,12 @@ Route::get('/post', function (){
     $post = Post::find(1);
     return $post;
 });
+
+Route::get('blog/index', [BlogController::class, 'index']);
+Route::get('blog/create', function( ){
+    return view('blog.create');
+});
+
+Route::post('blog/create', [BlogController::class, 'store'])->name('add-blog');
+
+Route::get('post/{id}', [BlogController::class, 'get_post']);
